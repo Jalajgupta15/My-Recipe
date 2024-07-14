@@ -1,7 +1,9 @@
+const apiKey = '87a614b4d79b40b4b95babd76e33093c';
+
 async function fetchRecipe(dishName) {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${dishName}`);
+    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${dishName}&apiKey=${apiKey}`);
     const data = await response.json();
-    return data.meals;
+    return data.results;
 }
 
 document.getElementById('searchButton').addEventListener('click', async () => {
@@ -13,17 +15,9 @@ document.getElementById('searchButton').addEventListener('click', async () => {
 function displayRecipes(recipes) {
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';
-    if (recipes) {
-        recipes.forEach(recipe => {
-            const recipeElement = document.createElement('div');
-            recipeElement.innerHTML = `
-                <h3>${recipe.strMeal}</h3>
-                <img src="${recipe.strMealThumb}" alt="${recipe.strMeal}" style="width:100%;border-radius:5px;">
-                <p><a href="${recipe.strSource}" target="_blank">View Recipe</a></p>
-            `;
-            resultsDiv.appendChild(recipeElement);
-        });
-    } else {
-        resultsDiv.innerHTML = '<p>No recipes found. Please try a different dish name.</p>';
-    }
+    recipes.forEach(recipe => {
+        const recipeElement = document.createElement('div');
+        recipeElement.innerHTML = `<h3>${recipe.title}</h3><img src="${recipe.image}" alt="${recipe.title}" style="width:100%;border-radius:5px;"><p><a href="https://spoonacular.com/recipes/${recipe.id}" target="_blank">View Recipe</a></p>`;
+        resultsDiv.appendChild(recipeElement);
+    });
 }
