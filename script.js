@@ -2,7 +2,7 @@ const appId = 'ce65fad0';
 const appKey = 'bce0c5427ef90a795cf10c058fb4c0c6';
 
 async function fetchRecipe(dishName) {
-    const response = await fetch(`https://api.edamam.com/search?q=${dishName}&app_id=${ce65fad0}&app_key=${bce0c5427ef90a795cf10c058fb4c0c6}`);
+    const response = await fetch(`https://api.edamam.com/search?q=${dishName}&app_id=${appId}&app_key=${appKey}`);
     const data = await response.json();
     return data.hits;
 }
